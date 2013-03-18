@@ -242,6 +242,19 @@ aside#logo a:hover {
 	padding: 5px 20px;
 }
 
+code {
+    font-family: monospace;
+    padding: 0px;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    padding: 16px;
+}
+
 #content-container .sidebar h3 span {
 	margin-right: 10px;
 	font-size: 170%;

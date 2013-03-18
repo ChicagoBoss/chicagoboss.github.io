@@ -44,21 +44,79 @@
 					<div class="row clearfix">
 						<div class="ten columns alpha">
 							<h2>About</h2>
-							<h3>The Golden Age of Network Programming</h3>
-							<p>Once upon a time, before the days when anyone who knew about the lasso tool in Photoshop decided to become a web programmer, servers were written by grizzled C and C++ engineers who ate rice and beans and knew how to stretch a CPU cycle to its utmost limit. They'd talk about things like "byte copies", "cache hits", and  "system calls", the little things that might matter only a few micro- or milliseconds, but taken together, could mean the difference between delight and despair somewhere on the other side of the Internet. The server's job was to deliver information as quickly as possible, and did so by the grace of the good Lord above and the ingenuity of the engineer down the hall.</p>
+                            <p><strong>We love Rails</strong>, but we believe that Ruby is absolutely the wrong choice of platform on which to build a simple, fast, reliable website. The alternatives aren't much better: the JVM, V8, Python, and Perl all eventually run into the problem of <strong>dog-slow server-side templates</strong>.</p>
 
-							<h3>Ruby on Rails: A False Prophet</h3>
-							<p>But somewhere along the line, human nature kicked in, and programmers started to get greedy. Lisp had softened the ground, and Perl planted the seeds of Laziness, Impatience, and Hubris into programmers' minds. These seeds later grew into the great tree of temptation known as Ruby on Rails, which whispered promises into programmers' ears and told them they had been working so hard all these years &#8212; wasn't it time for a break? Can't you just let the server do a little more work instead? Don't you deserve to be happy?</p>
-							<p>Rails, to be sure, was fun, and with it, practically anyone could write a web server that did something useful. The clouds opened, the birds sang, and the mundane became enjoyable. But the good times came with a price: Rails servers were slow, and they were buggy. No matter, preached the prophet: just buy more hardware. Server crashing? Restart it. Who cares if your users have to wait a few extra seconds? After all&#133; you're worth it.</p>
+                            <p>Web developers usually "solve" the problem in a number of ways: buying lots of hardware, hiring a big ops team, implementing complex nested hierarchical cache structures, ripping out features, and moving to a "thick-client" architecture that takes forever to load. But there's a much simpler solution: it's called <strong>respecting the RAM</strong>.</p>
 
-							<h3>Descent into Darkness</h3>
-							<p>Most of the crashes in Ruby on Rails were eventually worked out, but this pernicious logic gave way to more and more programmer conveniences, which came at the expense of supposedly "cheap" CPU cycles. Enough cheap, of course, gets expensive. Each convenience added to ActiveRecord, and each helper tacked onto the template system, was financed in part by the operations team, which had to manage more and more servers and respond to more crashes; and in part by the users who had to wait longer and longer (and longer…) for each web page to load.</p>
-							<p>It was only a matter of time before the costs became intolerable; users began to complain, and operations started pushing work back on the programmers. (DevOps.) But unwilling to abandon the convenience of Rails, programmers solved the slowness with a novel remedy: rather than discern and mitigate the cause of the slowness on the server, they could instead divert users' attention away from it by using extensive JavaScript animations in the browser.</p>
+                            <h3>Erlang Respects Your RAM!</h3>
 
-							<h3>A New Beginning</h3>
-							<p>Chicago Boss is a reaction against slow server software. We believe that today's generation of "Loading&#133;" animations are gumming up the web and hindering users from achieving their goals quickly. Boss was designed with low&#8211;level engineering considerations in mind in order to deliver old-fashioned, information-rich web pages to users as efficiently as possible. Of course, if you'd prefer to stick to a single-page architecture or make extensive use of AJAX, Boss can also serve up JSON in a snap, too.</p>
-							<p>The best part is that unlike in the days of yore, you no longer have to be a cycle-counting programming guru to write a high-performance web server. You don't have to implement complex view caching or write nested callbacks to get good performance. All of the hard parts are handled by the Erlang VM. The API of Chicago Boss was inspired by, and is as succinct as, Ruby on Rails. You only need to learn a subset of Erlang in order to achieve 99% of web programming tasks.</p>
-							<p>Chicago Boss is almost fully functional at this point; the only key features missing are a database migration system and OTP-style release handling (but we're working on it!). As a word of warning, the project is not as mature as Ruby on Rails or Django; the documents can be spartan, and the error messages can be cryptic. The Erlang community is small in comparison to other languages, so if you need specialized functionality, you may end up having to write your own library. But if you're willing to forego a few creature comforts, you'll find that Chicago Boss is the easiest way to build a website in Erlang &#8212; the world's most advanced networking platform.</p>
+                            <p>Erlang is different from other platforms because when rendering a server-side template, it doesn't create a separate copy of a web page in memory for each connected client. Instead, it constructs <strong>pointers to the same pieces of immutable memory</strong> across multiple requests.</p>
+                            
+                            <p>So if two people request two different profile pages at the same time, they're actually sent the same chunks of memory for the header, footer, and other shared template snippets. The result is a server that can construct complex, <strong>uncached</strong> web pages for hundreds of users per second without breaking a sweat.</p>
+
+                            <p>With Erlang, you can run a website on a fraction of the hardware that Ruby and the JVM require, saving you hundreds or thousands of dollars. You can run a website on "wimpy-core" ARM servers, helping your bottom-line along with the environment. Your test suite will run much faster than you thought possible, shortening your development cycle and letting you deliver features more quickly.</p>
+
+                            <h3>Chicago Boss Makes Erlang Accessible</h3>
+
+                            <p>Erlang has a reputation for being a mystical technology available only to an elite few willing to spend years learning its arcane syntax. It's true that Erlang "looks weird" to developers accustomed to C-like syntax, and the semantics of functional programming takes some getting used to. By <strong>adopting familiar Rails conventions</strong>, Chicago Boss has finally made Erlang accessible to programmers who don't have years and years of free time.</p>
+
+                            <p>Let's look at a few examples.</p>
+
+                            <h4>Defining an action</h4>
+
+                            <p>Ruby on Rails:
+<pre><code>def index
+    case @request.method
+    when "POST"
+        # do something...
+    when "GET"
+        # do something...
+    end
+end</code></pre>
+                            </p>
+
+                            <p>Chicago Boss:
+<pre><code>index('POST', []) -&gt;
+    # do something...
+index('GET', []) -&gt;
+    # do something...</code></pre>
+                            </p>
+
+                            <h4>Creating a record</h4>
+
+                            <p>Ruby on Rails:
+<pre><code>@person = Person.new(:name =&gt; "Joe", :age =&gt; 4)</code></pre>
+                            </p>
+
+                            <p>Chicago Boss:
+<pre><code>Person = boss_record:new(person, [{name, "Joe"}, {age, 4}])</code></pre>
+                            </p>
+
+                            <h4>Saving a record</h4>
+
+                            <p>Ruby on Rails:
+<pre><code>@person.save</code></pre>
+                            </p>
+
+                            <p>Chicago Boss:
+<pre><code>Person:save()</code></pre>
+                            </p>
+
+                            <h4>Perform a 302 Redirect</h4>
+                            <p>Ruby on Rails:
+<pre><code>redirect_to :action =&gt; 'show', :id =&gt; @person.id</code></pre>
+                            </p>
+
+                            <p>Chicago Boss:
+<pre><code>{redirect, [{action, "show"}, {id, Person:id()}]}</code></pre>
+                            </p>
+
+                            <p>Check out the <a href="https://github.com/evanmiller/ChicagoBoss/wiki/Ruby-on-Rails-Versus-Chicago-Boss">wiki page</a> for more examples, including record validation, before filters, and more.</p>
+
+                            <h3>Chicago Boss Is Ready For Action</h3>
+
+                            <p>We're not quite to a 1.0 release, but Chicago Boss is already being used in production on a number of <a href="https://github.com/evanmiller/ChicagoBoss/wiki/List-of-companies-using-Chicago-Boss-internally">internal</a> as well as <a href="https://github.com/evanmiller/ChicagoBoss/wiki/List-of-public-websites-built-with-Chicago-Boss">public-facing</a> websites. If you like what you've read so far, you can download <a href="https://github.com/evanmiller/ChicagoBoss">the latest code</a>, browse the <a href="/api.html">API documents</a>, read the <a href="/tutorial.pdf">PDF tutorial</a>, check out our <a href="https://github.com/evanmiller/ChicagoBoss/wiki">wiki</a>, or come and <a href="contact.htm">talk to us</a>!</p>
+
 						</div>
 						
 						<div class="sidebar five columns omega">
