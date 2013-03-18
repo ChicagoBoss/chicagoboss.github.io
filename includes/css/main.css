@@ -327,7 +327,6 @@ footer span {padding: 10px 20px;}
 		margin-top: 85px;
 		font-size: 75%;
 	}
-	
 }
 
 @media only screen and (max-width: 767px) {
@@ -378,6 +377,20 @@ footer span {padding: 10px 20px;}
 		margin-top: 85px;
 		font-size: 65%;
 	}
+code {
+    font-family: monospace;
+    font-size: 65%;
+    padding: 0px;
+}
+
+h4 {
+    font-size: 75%;
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    padding: 16px;
+}
+	
 	
 }
 
