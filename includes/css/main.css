@@ -230,6 +230,7 @@ aside#logo a:hover {
 	
 .sidebar {
 	margin-top: 90px;
+	margin-bottom: -60px;
 	font-size: 80%;
 }
 
