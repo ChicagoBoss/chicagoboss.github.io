@@ -32,9 +32,7 @@
 						</svg>
 					</a>
 				</aside>
-				<nav id="nav-global">
-                <a href="/api.html">API</a><a href="https://github.com/evanmiller/ChicagoBoss/wiki">Wiki</a><a href="https://github.com/evanmiller/ChicagoBoss/wiki/Quickstart">Quick Start</a><a href="/ChicagoBoss-0.8.6.tar.gz" class="download">Download v 0.8.6 <span>&#128229;</span></a><a href="about.htm" class="active">About</a>
-				</nav>
+				<nav id="nav-global"><a href="/api.html">API</a><a href="https://github.com/evanmiller/ChicagoBoss/wiki">Wiki</a><a href="https://github.com/evanmiller/ChicagoBoss/wiki/Quickstart">Quick Start</a><a href="/ChicagoBoss-0.8.6.tar.gz" class="download">Download v 0.8.6 <span>&#128229;</span></a><a href="about.htm" class="active">About</a></nav>
 			</hgroup>
 		</header>
 		<section class="container">
@@ -44,6 +42,12 @@
 					<div class="row clearfix">
 						<div class="ten columns alpha">
 							<h2>About</h2>
+							
+                        	<div class="video-container">
+								<iframe src="http://www.youtube.com/embed/LGGo6bIuj8w?rel=0" frameborder="0" allowfullscreen></iframe>
+							</div>
+						    <h5>Chicago Boss creator, Evan Miller at Erlang Factory 2013</h5>
+							<hr />
                             <p><strong>We love Rails</strong>, but we believe that Ruby is the wrong choice of platform on which to build a simple, fast, reliable website. The alternatives aren't much better: the JVM, V8, Python, and Perl all eventually run into the problem of <strong>dog-slow server-side templates</strong>.</p>
 
                             <p>Web developers usually "solve" the problem in a number of ways: buying lots of hardware, hiring a big ops team, implementing complex nested hierarchical cache structures, ripping out features, and moving to a "thick-client" architecture that takes forever to load. But there's a much simpler solution: it's called <strong>respecting the RAM</strong>.</p>
@@ -60,11 +64,10 @@
 
                             <p>Erlang has a reputation for being a mystical technology available only to an elite few willing to spend years learning its arcane syntax. It's true that Erlang "looks weird" to developers accustomed to C-like syntax, and the semantics of functional programming takes some getting used to. By <strong>adopting familiar Rails conventions</strong>, Chicago Boss has finally made Erlang accessible to programmers who don't have years and years of free time.</p>
 
-                            <p>Let's look at a few examples.</p>
+                            <p>Let's look at a few examples:</p>
 
                             <h4>Defining an action</h4>
-
-                            <p>Ruby on Rails:
+                            <h5>Ruby on Rails:</h5>
 <pre><code>def index
     case @request.method
     when "POST"
@@ -73,43 +76,37 @@
         # do something...
     end
 end</code></pre>
-                            </p>
-
-                            <p>Chicago Boss:
+                            <h5>Chicago Boss:</h5>
 <pre><code>index('POST', []) -&gt;
     # do something...
 index('GET', []) -&gt;
     # do something...</code></pre>
-                            </p>
-
+							<hr />
+                            
                             <h4>Creating a record</h4>
-
-                            <p>Ruby on Rails:
+                            <h5>Ruby on Rails:</h5>
 <pre><code>@person = Person.new(:name =&gt; "Joe", :age =&gt; 4)</code></pre>
-                            </p>
 
-                            <p>Chicago Boss:
+							<h5>Chicago Boss:</h5>
 <pre><code>Person = boss_record:new(person, [{name, "Joe"}, {age, 4}])</code></pre>
-                            </p>
+							<hr />
 
                             <h4>Saving a record</h4>
 
-                            <p>Ruby on Rails:
+                            <h5>Ruby on Rails:</h5>
 <pre><code>@person.save</code></pre>
-                            </p>
 
-                            <p>Chicago Boss:
+							<h5>Chicago Boss:</h5>
 <pre><code>Person:save()</code></pre>
-                            </p>
+							<hr />
 
                             <h4>Perform a 302 Redirect</h4>
-                            <p>Ruby on Rails:
-<pre><code>redirect_to :action =&gt; 'show', :id =&gt; @person.id</code></pre>
-                            </p>
 
-                            <p>Chicago Boss:
+                            <h5>Ruby on Rails:</h5>
+<pre><code>redirect_to :action =&gt; 'show', :id =&gt; @person.id</code></pre>
+
+							<h5>Chicago Boss:</h5>
 <pre><code>{redirect, [{action, "show"}, {id, Person:id()}]}</code></pre>
-                            </p>
 
                             <p>Check out the <a href="https://github.com/evanmiller/ChicagoBoss/wiki/Ruby-on-Rails-Versus-Chicago-Boss">wiki page</a> for more examples, including record validation, before filters, and more.</p>
 
@@ -120,7 +117,7 @@ index('GET', []) -&gt;
 						</div>
 						
 						<div class="sidebar five columns omega">
-                            <h3>&#9742;&nbsp;&nbsp;Talk to us<span>&nbsp;</span></h3>
+                            <h3><span>&#59160;</span>Talk to us<span>&nbsp;</span></h3>
 							<ul>
                                 <li>#chicagoboss on irc.freenode.net</li>
                                 <li><a href="https://groups.google.com/forum/?fromgroups#!forum/chicagoboss">chicagoboss</a>@googlegroups.com</li>
