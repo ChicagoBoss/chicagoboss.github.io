@@ -8,8 +8,6 @@
 	
 	<title>Chicago Boss: About The Project</title>
 	<link rel="stylesheet" href="includes/css/main.css">
-	
-	<script src="includes/js/jquery-1.8.2.min.js"></script>
 	<script src="includes/js/main.js"></script>
 
 	<!-- IE Fix for HTML5 Tags -->
@@ -30,8 +28,8 @@
 
 </head>
 <body>
-	<article>
 		<header id="nav-global-container">
+			<span id="forkongithub"><a href="https://github.com/ChicagoBoss/ChicagoBoss">Fork me on GitHub</a></span>
 			<aside id="logo">
 				<a href="index.htm">
 					<svg id="logo-large" height="99" width="252" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
@@ -43,46 +41,46 @@
 				</a>
 			</aside>
 			<nav id="nav-global">
-               	<a href="documentation.htm">Documentation</a>
-               	<a href="about.htm">About</a>
-               	<a href="community.htm">Community</a>
-               	<a href="download.htm" class="download">Download <span>&#128229;</span></a>
-               	<a href="contact.htm">Contacts</a>                
+	              	<a href="documentation.htm">Documentation</a>
+	              	<a href="about.htm">About</a>
+	              	<a href="community.htm">Community</a>
+	              	<a href="download.htm" class="download">Download <span>&#128229;</span></a>
+	              	<a href="contact.htm">Contacts</a>                
 			</nav>
 		</header>
 		<section class="container">
 			
 			<div class="sixteen columns">
-				<div id="content-container" class="padding-twenty">
+				<article id="content-container" class="padding-twenty">
 					<div class="row clearfix">
 						<div class="ten columns alpha">
 							<h2>About</h2>
 							
-                        	<div class="video-container">
+	                       	<div class="video-container">
 								<iframe src="http://www.youtube.com/embed/LGGo6bIuj8w?rel=0" frameborder="0" allowfullscreen></iframe>
 							</div>
 						    <h5>Chicago Boss creator, Evan Miller at Erlang Factory 2013</h5>
 							<hr />
-                            <p><strong>We love Rails</strong>, but we believe that Ruby is the wrong choice of platform on which to build a simple, fast, reliable website. The alternatives aren't much better: the JVM, V8, Python, and Perl all eventually run into the problem of <strong>dog-slow server-side templates</strong>.</p>
-
-                            <p>Web developers usually "solve" the problem in a number of ways: buying lots of hardware, hiring a big ops team, implementing complex nested hierarchical cache structures, ripping out features, and moving to a "thick-client" architecture that takes forever to load. But there's a much simpler solution: it's called <strong>respecting the RAM</strong>.</p>
-
-                            <h3>Erlang Respects Your RAM!</h3>
-
-                            <p>Erlang is different from other platforms because when rendering a server-side template, it doesn't create a separate copy of a web page in memory for each connected client. Instead, it constructs <strong>pointers to the same pieces of immutable memory</strong> across multiple requests.</p>
-                            
-                            <p>So if two people request two different profile pages at the same time, they're actually sent the same chunks of memory for the header, footer, and other shared template snippets. The result is a server that can construct complex, <strong>uncached</strong> web pages for hundreds of users per second without breaking a sweat.</p>
-
-                            <p>With Erlang, you can run a website on a <strong>fraction of the hardware</strong> that Ruby and the JVM require, saving you money and operational headaches. You can run a website on "wimpy-core" ARM servers, helping your bottom-line along with the environment. Your test suite will run much faster than you thought possible, shortening your development cycle and letting you deliver features more quickly.</p>
-
-                            <h3>Chicago Boss Makes Erlang Accessible</h3>
-
-                            <p>Erlang has a reputation for being a mystical technology available only to an elite few willing to spend years learning its arcane syntax. It's true that Erlang "looks weird" to developers accustomed to C-like syntax, and the semantics of functional programming takes some getting used to. By <strong>adopting familiar Rails conventions</strong>, Chicago Boss has finally made Erlang accessible to programmers who don't have years and years of free time.</p>
-
-                            <p>Let's look at a few examples:</p>
-
-                            <h4>Defining an action</h4>
-                            <h5>Ruby on Rails:</h5>
+	                           <p><strong>We love Rails</strong>, but we believe that Ruby is the wrong choice of platform on which to build a simple, fast, reliable website. The alternatives aren't much better: the JVM, V8, Python, and Perl all eventually run into the problem of <strong>dog-slow server-side templates</strong>.</p>
+	
+	                           <p>Web developers usually "solve" the problem in a number of ways: buying lots of hardware, hiring a big ops team, implementing complex nested hierarchical cache structures, ripping out features, and moving to a "thick-client" architecture that takes forever to load. But there's a much simpler solution: it's called <strong>respecting the RAM</strong>.</p>
+	
+	                           <h3>Erlang Respects Your RAM!</h3>
+	
+	                           <p>Erlang is different from other platforms because when rendering a server-side template, it doesn't create a separate copy of a web page in memory for each connected client. Instead, it constructs <strong>pointers to the same pieces of immutable memory</strong> across multiple requests.</p>
+	                           
+	                           <p>So if two people request two different profile pages at the same time, they're actually sent the same chunks of memory for the header, footer, and other shared template snippets. The result is a server that can construct complex, <strong>uncached</strong> web pages for hundreds of users per second without breaking a sweat.</p>
+	
+	                           <p>With Erlang, you can run a website on a <strong>fraction of the hardware</strong> that Ruby and the JVM require, saving you money and operational headaches. You can run a website on "wimpy-core" ARM servers, helping your bottom-line along with the environment. Your test suite will run much faster than you thought possible, shortening your development cycle and letting you deliver features more quickly.</p>
+	
+	                           <h3>Chicago Boss Makes Erlang Accessible</h3>
+	
+	                           <p>Erlang has a reputation for being a mystical technology available only to an elite few willing to spend years learning its arcane syntax. It's true that Erlang "looks weird" to developers accustomed to C-like syntax, and the semantics of functional programming takes some getting used to. By <strong>adopting familiar Rails conventions</strong>, Chicago Boss has finally made Erlang accessible to programmers who don't have years and years of free time.</p>
+	
+	                           <p>Let's look at a few examples:</p>
+	
+	                           <h4>Defining an action</h4>
+	                           <h5>Ruby on Rails:</h5>
 <pre><code>def index
     case @request.method
     when "POST"
@@ -96,46 +94,46 @@ end</code></pre>
     # do something...
 index('GET', []) -&gt;
     # do something...</code></pre>
-							<hr />
-                            
-                            <h4>Creating a record</h4>
-                            <h5>Ruby on Rails:</h5>
-<pre><code>@person = Person.new(:name =&gt; "Joe", :age =&gt; 4)</code></pre>
-
-							<h5>Chicago Boss:</h5>
-<pre><code>Person = boss_record:new(person, [{name, "Joe"}, {age, 4}])</code></pre>
-							<hr />
-
-                            <h4>Saving a record</h4>
-
-                            <h5>Ruby on Rails:</h5>
-<pre><code>@person.save</code></pre>
-
-							<h5>Chicago Boss:</h5>
-<pre><code>Person:save()</code></pre>
-							<hr />
-
-                            <h4>Perform a 302 Redirect</h4>
-
-                            <h5>Ruby on Rails:</h5>
-<pre><code>redirect_to :action =&gt; 'show', :id =&gt; @person.id</code></pre>
-
-							<h5>Chicago Boss:</h5>
-<pre><code>{redirect, [{action, "show"}, {id, Person:id()}]}</code></pre>
-
-                            <p>Check out the <a href="https://github.com/evanmiller/ChicagoBoss/wiki/Ruby-on-Rails-Versus-Chicago-Boss">wiki page</a> for more examples, including record validation, before filters, and more.</p>
-
-                            <h3>Chicago Boss Is Ready For Action</h3>
-
-                            <p>We're not quite to a 1.0 release, but Chicago Boss is already being used in production on a number of <a href="https://github.com/evanmiller/ChicagoBoss/wiki/List-of-companies-using-Chicago-Boss-internally">internal</a> as well as <a href="https://github.com/evanmiller/ChicagoBoss/wiki/List-of-public-websites-built-with-Chicago-Boss">public-facing</a> websites. If you like what you've read so far, you can download <a href="https://github.com/evanmiller/ChicagoBoss">the latest code</a>, browse the <a href="/api.html">API documents</a>, read the <a href="/tutorial.pdf">PDF tutorial</a>, check out our <a href="https://github.com/evanmiller/ChicagoBoss/wiki">wiki</a>, or come and <a href="contact.htm">talk to us</a>!</p>
-
+								<hr />
+	                            
+	                            <h4>Creating a record</h4>
+	                            <h5>Ruby on Rails:</h5>
+	<pre><code>@person = Person.new(:name =&gt; "Joe", :age =&gt; 4)</code></pre>
+	
+								<h5>Chicago Boss:</h5>
+	<pre><code>Person = boss_record:new(person, [{name, "Joe"}, {age, 4}])</code></pre>
+								<hr />
+	
+	                            <h4>Saving a record</h4>
+	
+	                            <h5>Ruby on Rails:</h5>
+	<pre><code>@person.save</code></pre>
+	
+								<h5>Chicago Boss:</h5>
+	<pre><code>Person:save()</code></pre>
+								<hr />
+	
+	                            <h4>Perform a 302 Redirect</h4>
+	
+	                            <h5>Ruby on Rails:</h5>
+	<pre><code>redirect_to :action =&gt; 'show', :id =&gt; @person.id</code></pre>
+	
+								<h5>Chicago Boss:</h5>
+	<pre><code>{redirect, [{action, "show"}, {id, Person:id()}]}</code></pre>
+	
+	                           <p>Check out the <a href="https://github.com/evanmiller/ChicagoBoss/wiki/Ruby-on-Rails-Versus-Chicago-Boss">wiki page</a> for more examples, including record validation, before filters, and more.</p>
+	
+	                           <h3>Chicago Boss Is Ready For Action</h3>
+	
+	                           <p>We're not quite to a 1.0 release, but Chicago Boss is already being used in production on a number of <a href="https://github.com/evanmiller/ChicagoBoss/wiki/List-of-companies-using-Chicago-Boss-internally">internal</a> as well as <a href="https://github.com/evanmiller/ChicagoBoss/wiki/List-of-public-websites-built-with-Chicago-Boss">public-facing</a> websites. If you like what you've read so far, you can download <a href="https://github.com/evanmiller/ChicagoBoss">the latest code</a>, browse the <a href="/api.html">API documents</a>, read the <a href="/tutorial.pdf">PDF tutorial</a>, check out our <a href="https://github.com/evanmiller/ChicagoBoss/wiki">wiki</a>, or come and <a href="contact.htm">talk to us</a>!</p>
+	
 						</div>
 						
 						<div class="sidebar five columns omega">
-                            <h3><span>&#59160;</span>Talk to us<span>&nbsp;</span></h3>
+	                           <h3><span>&#59160;</span>Talk to us<span>&nbsp;</span></h3>
 							<ul>
-                                <li>#chicagoboss on irc.freenode.net</li>
-                                <li><a href="https://groups.google.com/forum/?fromgroups#!forum/chicagoboss">chicagoboss</a>@googlegroups.com</li>
+	                               <li>#chicagoboss on irc.freenode.net</li>
+	                               <li><a href="https://groups.google.com/forum/?fromgroups#!forum/chicagoboss">chicagoboss</a>@googlegroups.com</li>
 							</ul>
 						</div>
 						<div class="sidebar five columns omega">
@@ -154,20 +152,18 @@ index('GET', []) -&gt;
 						</div>
 						
 					</div>
-				</div>
+				</article>
 			</div>
 			
 		</section>
 		<footer class="clearfix">
 			<nav id="nav-footer" class="clearfix">
-                <a href="documentation.htm">Documentation</a>
-                <a href="about.htm">About</a>
-                <a href="community.htm">Community</a>
-                <a href="download.htm" class="download">Download</a>
-                <a href="contact.htm">Contacts</a>  
+	               <a href="documentation.htm">Documentation</a>
+	               <a href="about.htm">About</a>
+	               <a href="community.htm">Community</a>
+	               <a href="download.htm" class="download">Download</a>
+	               <a href="contact.htm">Contacts</a>  
 			</nav>
 		</footer>
-	</article>
-		
 </body>
 </html>
