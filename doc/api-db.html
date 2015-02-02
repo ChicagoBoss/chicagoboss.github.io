@@ -1,0 +1,548 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Chicago Boss: The Official API Reference</title>
+        <link rel="stylesheet" type="text/css" href="boss.css" />
+    </head>
+
+<body>
+<header>
+        <p id="link-home"><em><a href="/">Chicago Boss home</a></em></p>
+
+<div style="text-align: center; font-style: italic;">
+<p>The Chicago Boss API is mostly stable, but still might change before 1.0.</p>
+</div>
+<div class="subnav">
+    
+    <strong>BossDB</strong>
+     
+    &nbsp; | &nbsp; 
+    
+    <a href="api-record.html">Models</a> 
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-news.html">Events</a>
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-controller.html">Web Controllers</a> 
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-mq.html">BossMQ</a>
+    
+    &nbsp; | &nbsp; 
+    
+    <a href="api-websocket.html">WebSockets</a>
+    
+    &nbsp; | &nbsp; 
+    
+    <a href="api-session.html">Sessions</a>
+           
+    &nbsp; | &nbsp;
+    
+    <a href="api-mail-controller.html">Mail</a> 
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-view.html">Templates</a>
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-test.html">Tests</a>
+    
+</div>
+</header>
+<div id="api-content">
+
+<p>BossDB is a database abstraction layer used for querying and updating the database. Currently Tokyo Tyrant, Mnesia, MySQL, and PostgreSQL are supported.</p>
+
+
+<h2>Functions</h2>
+
+<p>Functions in the <code>boss_db</code> module include:</p>
+
+
+    
+
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                migrate
+            </div>
+            <p>Apply migrations from list [{Tag, Fun}]
+  currently runs all migrations 'up'</p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                migrate
+            </div>
+            <p>Run database migration {Tag, Fun} in Direction</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                find(Id<span class="typevar">::string()</span>) -> Value | {error, Reason}
+            </div>
+            <p>Find a BossRecord with the specified <code>Id</code> (e.g. "employee-42") or a value described
+  by a dot-separated path (e.g. "employee-42.manager.name").</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                find(Type<span class="typevar">::atom()</span>, Conditions, Options<span class="typevar">::proplist()</span>) -> [BossRecord]
+            </div>
+            <p>Query for BossRecords. Returns BossRecords of type
+  <code>Type</code> matching all of the given <code>Conditions</code>. Options may include
+  <code>limit</code> (maximum number of records to return), <code>offset</code> (number of records
+  to skip), <code>order_by</code> (attribute to sort on), <code>descending</code> (whether to
+  sort the values from highest to lowest), and <code>include</code> (list of belongs_to
+  associations to pre-cache)</p>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                find_first(Type<span class="typevar">::atom()</span>) -> Record | undefined
+            </div>
+            <p>Query for the first BossRecord of type <code>Type</code>.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                find_first(Type<span class="typevar">::atom()</span>, Conditions) -> Record | undefined
+            </div>
+            <p>Query for the first BossRecord of type <code>Type</code> matching all of the given <code>Conditions</code></p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                find_first(Type<span class="typevar">::atom()</span>, Conditions, Sort<span class="typevar">::atom()</span>) -> Record | undefined
+            </div>
+            <p>Query for the first BossRecord of type <code>Type</code> matching all of the given <code>Conditions</code>,
+  sorted on the attribute <code>Sort</code>.</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                find_last(Type<span class="typevar">::atom()</span>) -> Record | undefined
+            </div>
+            <p>Query for the last BossRecord of type <code>Type</code>.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                find_last(Type<span class="typevar">::atom()</span>, Conditions) -> Record | undefined
+            </div>
+            <p>Query for the last BossRecord of type <code>Type</code> matching all of the given <code>Conditions</code></p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                find_last(Type<span class="typevar">::atom()</span>, Conditions, TimeoutSort) -> Record | undefined
+            </div>
+            <p>Query for the last BossRecord of type <code>Type</code> matching all of the given <code>Conditions</code></p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                count(Type<span class="typevar">::atom()</span>) -> <span class="typevar">::integer()</span>
+            </div>
+            <p>Count the number of BossRecords of type <code>Type</code> in the database.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                count(Type<span class="typevar">::atom()</span>, TimeoutConditions) -> <span class="typevar">::integer()</span>
+            </div>
+            <p>Count the number of BossRecords of type <code>Type</code> in the database matching
+  all of the given <code>Conditions</code>.</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                counter(Id<span class="typevar">::string()</span>) -> <span class="typevar">::integer()</span>
+            </div>
+            <p>Treat the record associated with <code>Id</code> as a counter and return its value.
+  Returns 0 if the record does not exist, so to reset a counter just use
+  "delete".</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                incr(Id<span class="typevar">::string()</span>) -> <span class="typevar">::integer()</span>
+            </div>
+            <p>Treat the record associated with <code>Id</code> as a counter and atomically increment its value by 1.</p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                incr(Id<span class="typevar">::string()</span>, Increment<span class="typevar">::integer()</span>) -> <span class="typevar">::integer()</span>
+            </div>
+            <p>Treat the record associated with <code>Id</code> as a counter and atomically increment its value by <code>Increment</code>.</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                delete(Id<span class="typevar">::string()</span>) -> ok | {error, Reason}
+            </div>
+            <p>Delete the BossRecord with the given <code>Id</code>.</p>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                create_table(TableName<span class="typevar">::string()</span>, TableDefinition) -> ok | {error, Reason}
+            </div>
+            <p>Create a table based on TableDefinition</p>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                execute(Commands<span class="typevar">::iolist()</span>) -> RetVal
+            </div>
+            <p>Execute raw database commands on SQL databases</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                execute(Commands<span class="typevar">::iolist()</span>, Params<span class="typevar">::list()</span>) -> RetVal
+            </div>
+            <p>Execute database commands with interpolated parameters on SQL databases</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                transaction(TransactionFun<span class="typevar">::function()</span>) -> {atomic, Result} | {aborted, Reason}
+            </div>
+            <p>Execute a fun inside a transaction.</p>
+        </div>
+    
+
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                save_record(RecordBossRecord) -> {ok, SavedBossRecord} | {error, [ErrorMessages]}
+            </div>
+            <p>Save (that is, create or update) the given BossRecord in the database.
+  Performs validation first; see <code>validate_record/1</code>.</p>
+        </div>
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                validate_record(RecordBossRecord) -> ok | {error, [ErrorMessages]}
+            </div>
+            <p>Validate the given BossRecord without saving it in the database.
+  <code>ErrorMessages</code> are generated from the list of tests returned by the BossRecord's
+  <code>validation_tests/0</code> function (if defined). The returned list should consist of
+  <code>{TestFunction, ErrorMessage}</code> tuples, where <code>TestFunction</code> is a fun of arity 0
+  that returns <code>true</code> if the record is valid or <code>false</code> if it is invalid.
+  <code>ErrorMessage</code> should be a (constant) string which will be included in <code>ErrorMessages</code>
+  if the <code>TestFunction</code> returns <code>false</code> on this particular BossRecord.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                validate_record(RecordBossRecord, IsNew) -> ok | {error, [ErrorMessages]}
+            </div>
+            <p>Validate the given BossRecord without saving it in the database.
+  <code>ErrorMessages</code> are generated from the list of tests returned by the BossRecord's
+  <code>validation_tests/1</code> function (if defined), where parameter is atom() <code>on_create | on_update</code>.
+  The returned list should consist of <code>{TestFunction, ErrorMessage}</code> tuples,
+  where <code>TestFunction</code> is a fun of arity 0
+  that returns <code>true</code> if the record is valid or <code>false</code> if it is invalid.
+  <code>ErrorMessage</code> should be a (constant) string which will be included in <code>ErrorMessages</code>
+  if the <code>TestFunction</code> returns <code>false</code> on this particular BossRecord.</p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                validate_record_types(RecordBossRecord) -> ok | {error, [ErrorMessages]}
+            </div>
+            <p>Validate the parameter types of the given BossRecord without saving it
+  to the database.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                type(Id<span class="typevar">::string()</span>) -> <span class="typevar">::atom()</span>
+            </div>
+            <p>Returns the type of the BossRecord with <code>Id</code>, or <code>undefined</code> if the record does not exist.</p>
+        </div>
+    
+
+    
+
+    
+
+
+<h2>Creating a Model from a JSON record</h2>
+<p>
+If your project is anything like mine then you will probably have a
+case where you get a JSON in from the user or an api and you want to
+convert it to a model. we have a new
+function <b>boss_record:new_from_json/2</b> which lets you do that
+automaticly. To run this call new_from_json/2 with your model (atom)
+and your json record. Note that if you have a field called 'id' you
+will have to rename or remove it
+</p>
+
+<h2>Conditions and Comparison Operators</h2>
+
+<p>The "find" and "count" functions each take a set of <code>Conditions</code>, which specify search criteria. Similar to Microsoft's <a href="http://msdn.microsoft.com/en-us/library/bb308959.aspx">LINQ</a>, the <code>Conditions</code> can use a special non-Erlang syntax for conciseness. This special syntax can't be compiled with Erlang's default compiler, so you'll have to let Boss compile your controllers which use it.</p>
+
+<p><code>Conditions</code> looks like a list, but each element in the list uses a notation very similar to abstract mathematical notation with a left-hand side (an atom corresponding to a record attribute), a single-character operator, and a right-hand side (values to match to the attribute). <strong>The mathematical operators are not all ASCII!</strong> You may want to copy-paste the UTF-8 operators below. As an alternative, you can also specify each condition with a 3-tuple with easier-to-type operator names.</p>
+
+<p>As a quick example, to count the number of people younger than 25 with occupation listed as "student" or "unemployed", you would use:</p>
+<pre class="code">
+boss_db:count(person,
+    [age &lt; 25, occupation ∈ ["student", "unemployed"]]).
+</pre>
+<p>This could also be written:</p>
+<pre class="code">
+boss_db:count(person,
+    [{age, 'lt', 25},
+    {occupation, 'in', ["student", "unemployed"]}]).
+</pre>
+
+<h2>Valid <code>Conditions</code></h2>
+
+<div class="example row1">
+    <div class=" code">
+        <code>key = Value</code><br>
+        <code>{key, 'equals', Value}</code>
+    </div>
+    <p>
+        The "<code>key</code>" attribute is exactly equal to <code>Value</code>.
+    </p>
+</div>
+
+<div class="example row2">
+    <div class=" code">
+        <code>key ≠ Value</code><br>
+        <code>{key, 'not_equals', Value}</code>
+    </div>
+    <p>
+      The "<code>key</code>" attribute is not exactly equal to <code>Value</code>.  This is also used to attain a query like <code>foo IS NOT NULL</code>: <code>{foo, 'not_equals', undefined}</code>.
+    </p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ∈ [Value1, Value2, ...]</code><br>
+        <code>{key, 'in', [Value1, Value2, ...]}</code>
+    </div>
+    <p>The "<code>key</code>" attribute is equal to at least one element on the right-hand side.
+</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ∉ [Value1, Value2, ...]</code><br>
+        <code>{key, 'not_in', [Value1, Value2, ...]}</code>
+    </div>
+    <p>The "<code>key</code>" attribute is not equal to any element on the right-hand side.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ∈ {Min, Max}</code><br>
+        <code>{key, 'in', {Min, Max}}</code>
+    </div>
+    <p>The "<code>key</code>" attribute is numerically between <code>Min</code> and <code>Max</code>.
+</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ∉ {Min, Max}</code><br>
+        <code>{key, 'not_in', {Min, Max}}</code>
+    </div>
+    <p>The "<code>key</code>" attribute is not between <code>Min</code> and <code>Max</code>.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ∼ RegularExpression</code><br>
+        <code>{key, 'matches', RegularExpression}</code>
+    </div>
+    <p>The "<code>key</code>" attribute matches the <code>RegularExpression</code>. To perform a case-insensitive match, the expression should start with an asterisk (e.g. <code>*erlang</code>).</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ≁ RegularExpression</code><br>
+        <code>{key, 'not_matches', RegularExpression}</code>
+    </div>
+    <p>The "key" attribute does not match the <code>RegularExpression.</code>.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ∋ Token</code><br>
+        <code>{key, 'contains', Token}</code>
+    </div>
+    <p>The "key" attribute contains <code>Token</code>.</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ∌ Token</code><br>
+        <code>{key, 'not_contains', Token}</code>
+    </div>
+    <p>The "<code>key</code>" attribute does not contain <code>Token</code>.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ⊇ [Token1, Token2, ...]</code><br>
+        <code>{key, 'contains_all', [Token1, Token2, ...]}</code>
+    </div>
+    <p>The "<code>key</code>" attribute contains all tokens on the right-hand side.</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ⊉ [Token1, Token2, ...]</code><br>
+        <code>{key, 'not_contains_all', [Token1, Token2, ...]}</code>
+    </div>
+    <p>The "<code>key</code>" attribute does not contain all tokens on the right-hand side.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ∩ [Token1, Token2, ...]</code><br>
+        <code>{key, 'contains_any', [Token1, Token2, ...]}</code>   
+    </div>
+    <p>The "<code>key</code>" attribute contains at least one of the tokens on the right-hand side.</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ⊥ [Token1, Token2, ...]</code><br>
+        <code>{key, 'contains_none', [Token1, Token2, ...]}</code>
+    </div>
+    <p>The "<code>key</code>" attribute contains none of the tokens on the right-hand side.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key &gt; Value</code><br>
+        <code>{key, 'gt', Value}</code>
+    </div>
+    <p>The "<code>key</code>" attribute is greater than <code>Value</code>.</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key &lt; Value</code><br>
+        <code>{key, 'lt', Value}</code>
+    </div>
+    <p>The "key" attribute is less than <code>Value</code>.</p>
+</div>
+<div class="example row1">
+    <div class="code">
+        <code>key ≥ Value</code><br>
+        <code>{key, 'ge', Value}</code>
+    </div>
+    <p>The "key" attribute is greater than or equal to <code>Value</code>.</p>
+</div>
+<div class="example row2">
+    <div class="code">
+        <code>key ≤ Value</code><br>
+        <code>{key, 'le', Value}</code>
+    </div>
+    <p>The "key" attribute is less than or equal to <code>Value</code>.</p>
+</div>
+
+
+
+</div>
+</body>
+</html>

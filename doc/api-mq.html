@@ -1,0 +1,156 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Chicago Boss: The Official API Reference</title>
+        <link rel="stylesheet" type="text/css" href="boss.css" />
+    </head>
+
+<body>
+<header>
+        <p id="link-home"><em><a href="/">Chicago Boss home</a></em></p>
+
+<div style="text-align: center; font-style: italic;">
+<p>The Chicago Boss API is mostly stable, but still might change before 1.0.</p>
+</div>
+<div class="subnav">
+    
+    <a href="api-db.html">BossDB</a>
+     
+    &nbsp; | &nbsp; 
+    
+    <a href="api-record.html">Models</a> 
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-news.html">Events</a>
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-controller.html">Web Controllers</a> 
+    
+    &nbsp; | &nbsp;
+    
+    <strong>BossMQ</strong>
+    
+    &nbsp; | &nbsp; 
+    
+    <a href="api-websocket.html">WebSockets</a>
+    
+    &nbsp; | &nbsp; 
+    
+    <a href="api-session.html">Sessions</a>
+           
+    &nbsp; | &nbsp;
+    
+    <a href="api-mail-controller.html">Mail</a> 
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-view.html">Templates</a>
+    
+    &nbsp; | &nbsp;
+    
+    <a href="api-test.html">Tests</a>
+    
+</div>
+</header>
+<div id="api-content">
+
+<p>BossMQ is an abstraction layer for channel-based messaging that can be used to implement real-time notifications (i.e. Comet). With BossMQ, any controller action can function as a long-polling endpoint simply by calling <code>boss_mq:pull/2</code>:</p>
+
+<pre class="code">
+receive_chat('GET', []) -&gt;
+   {ok, Timestamp, Messages} = boss_mq:pull("my-channel", now)
+   {output, Messages}.
+</pre>
+
+<p>The call to <code>pull/2</code> blocks until a message arrives on "my-channel". Because of Erlang's lightweight process model, you usually don't need to worry if <code>pull/2</code> takes a long time to complete.</p>
+
+<p>To send a message to a channel, you call <code>boss_mq:push/2</code>:</p>
+
+<div class="code">
+    boss_mq:push("my-channel", &lt;&lt;"Secret Message"&gt;&gt;)
+</div>
+
+<p>Currently, only an in-memory message queue is supported, so all messaging must occur in the same CB cluster. Additional adapters will be added in the future to support more complex installations.</p>
+
+<h2>boss_mq API</h2>
+
+
+    
+
+    
+
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                pull(Channel<span class="typevar">::channel()</span>) -> <span class="typevar">::mq_return()</span>
+            </div>
+            <p>Pull messages from the specified <code>Channel</code>. If none are in the queue, blocks
+  until a message is pushed to the queue.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                pull(Channel<span class="typevar">::channel()</span>, Timestampundefined | <span class="typevar">::non_neg_integer()</span>) -> <span class="typevar">::mq_return()</span>
+            </div>
+            <p>Pull messages from the specified <code>Channel</code> after <code>Since</code> (a timestamp returned from a previous <code>pull</code>).
+  If no such messages are in the queue, blocks until a message is pushed to the queue.</p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                pull(Channel<span class="typevar">::channel()</span>, Timestampundefined | <span class="typevar">::integer()</span> | {<span class="typevar">::integer()</span>, <span class="typevar">::integer()</span>, <span class="typevar">::integer()</span>}, Timeoutinfinity | <span class="typevar">::non_neg_integer()</span>) -> <span class="typevar">::mq_return()</span>
+            </div>
+            <p>Pull messages from the specified <code>Channel</code> after <code>Since</code> (a timestamp returned from a previous <code>pull</code>). If no such messages
+  are in the queue, blocks until a message is pushed to the queue, or until <code>Timeout</code> seconds have elapsed.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                poll(Channel<span class="typevar">::channel()</span>) -> <span class="typevar">::mq_return()</span>
+            </div>
+            <p>Like <code>pull/1</code>, but returns immediately if no messages are in the queue.</p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                poll(Channel<span class="typevar">::channel()</span>, Timestamplast | <span class="typevar">::integer()</span>) -> <span class="typevar">::mq_return()</span>
+            </div>
+            <p>Like <code>pull/2</code>, but returns immediately if no matching messages are in the queue.</p>
+        </div>
+    
+
+    
+        <div class="example row1">
+          <div class="code">
+                push(Channel<span class="typevar">::channel()</span>, Message<span class="typevar">::term()</span>) -> {ok, <span class="typevar">::non_neg_integer()</span>}
+            </div>
+            <p>Pushes a message to the specified <code>Channel</code>.</p>
+        </div>
+    
+
+    
+        <div class="example row2">
+          <div class="code">
+                now(Channel<span class="typevar">::channel()</span>) -> <span class="typevar">::non_neg_integer()</span>
+            </div>
+            <p>Retrieves the current time for the server managing <code>Channel</code>.</p>
+        </div>
+    
+
+
+
+</div>
+</body>
+</html>
