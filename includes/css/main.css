@@ -180,7 +180,7 @@ hr {
 
 #content-container a:hover {text-decoration: underline;}
 
-#content-container ul {margin-left: 20px;}
+#content-container ul {margin-left: 30px;}
 
 #content-container li {
 	font-weight: 300;
@@ -232,7 +232,7 @@ hr {
 }
 
 #content-container .illustration ul {
-	font-size: 80%;
+	font-size: 70%;
 	text-align: left;
 }
 	
